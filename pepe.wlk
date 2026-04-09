@@ -14,7 +14,7 @@ method sueldoNeto(){
   } 
 
 method sueldo() {
-    return self.sueldoNeto() + bonoPorResultados.monto(self) + bonoPorPresentismo.monto(self)
+    return self.sueldoNeto() + self.bonoPorResultados.monto() + self.bonoPorPresentismo.monto()
 }
 
 method ausencias(){
@@ -45,10 +45,11 @@ object cadete {
 
 //       bono por    >resultados<
 object bonoPorResultados {           //usado por 'pepe' y 'sofia'
-  
-  method bonoFinal() {
-    return 
+  method monto(empleado) {
+    return bonoMontoFijo()
   } 
+//const bonoPorResultados = bonoPorcentaje
+//const bonoPorResultados = bonoMontoFijo 
 }
 
 // bono por resultados por porcentaje
