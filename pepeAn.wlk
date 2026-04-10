@@ -1,20 +1,18 @@
 object pepe {
     //var categoria = null
     var categoria = gerente
-    //var sueldoPorCategoria = 000
-    const bonoPorPresentismo = bonoNulo
-    const bonoPorResultados = bonoNulo
+    var bonoPorPresentismo = bonoNulo
+    var bonoPorResultados = bonoNulo
     var ausencias = 0
 
 
 
-method sueldoNeto(){
-    //sueldoPorCategoria = sueldoPorCategoria + bonoPorResultados + bonoPorPresentismo
+method sueldoNeto(){     //el neto depende de la categoria
     return categoria.neto()
   } 
 
-method sueldo() {
-    return self.sueldoNeto() + bonoPorResultados.monto(self) + bonoPorPresentismo.monto(self)
+method sueldo() {     //sueldo final que puede variar según los bonos
+    return self.sueldoNeto() + bonoPorPresentismo.monto(self) + bonoPorResultados.monto(self)
 }
 
 method ausencias(){
@@ -27,6 +25,15 @@ method _ausencias(_ausencias) {  // para pasarle la cant de ausencias del emplea
 
 method categoria(_categoria) {
   categoria = _categoria
+}
+// setters hechos (y también modificado los 2 atributos bonos 'const' por 'var') para setearle el valor que debe dar por ausencia, ya que si no siempre
+// va a dar el sueldo neto de la categoria que sea pepe...
+method bonoPorPresentismo(unBono) {
+  bonoPorPresentismo = unBono
+}
+
+method bonoPorResultados(unBono) {
+  bonoPorResultados = unBono
 }
 }
 
@@ -41,30 +48,31 @@ object cadete {
     return 20000
   } 
 }
-
-
 //       bono por    >resultados<
 object bonoPorResultados {           //usado por 'pepe' y 'sofia'
-  
-  method bonoFinal() {
-    return 
+  method monto(empleado) {
+    return bonoPorcentaje.monto(empleado) + bonoMontoFijo.monto(empleado)
   } 
 }
-
 // bono por resultados por porcentaje
 object bonoPorcentaje {
     method monto(empleado) { 
         return empleado.sueldoNeto() * 10 / 100 
     }
 }
- 
 // bono por resultados de monto fijo
 object bonoMontoFijo {
   method monto(empleado) {
     return 800
   }
 }
-
+object bonoPorPresentismo {
+  method monto(empleado) {
+    return bonoPresentismoNormal.monto(empleado)
+    + bonoPresentismoAjuste.monto(empleado)
+    + bonoPresentismoDemagogico.monto(empleado)
+  }
+}
 //          bonos por   >presentismo<
 object bonoPresentismoNormal {
 
@@ -78,7 +86,6 @@ object bonoPresentismoNormal {
     }
   }
 }
- 
 object bonoPresentismoAjuste {
 
   method monto(empleado) {
@@ -89,7 +96,6 @@ object bonoPresentismoAjuste {
     }
   }
 }
-
 object bonoPresentismoDemagogico {
 
   method monto(empleado) {
@@ -100,7 +106,6 @@ object bonoPresentismoDemagogico {
     }
   }
 }
-
 //Bono nulo: sirve para resultados y para presentismo, cuando el importe es 0 (o "nada")
 object bonoNulo {
     method monto(empleado) { 
