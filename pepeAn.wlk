@@ -1,3 +1,4 @@
+// ========================================= PEPE =====================================================
 object pepe {
     //var categoria = null
     var categoria = gerente
@@ -37,6 +38,7 @@ method bonoPorResultados(unBono) {
 }
 }
 
+// ========================================= CATEGORIAS =====================================================
 object gerente {
   method neto() {
     return 15000
@@ -48,7 +50,41 @@ object cadete {
     return 20000
   } 
 }
-//       bono por    >resultados<
+
+object vendedor {
+  var hayMuchasVentas = false
+
+
+  method neto() {
+    return if (hayMuchasVentas){
+      16000 * 1.25
+    } else {
+      16000
+    }
+  }
+
+  method activarAumentoPorMuchasVentas() {
+    hayMuchasVentas = true
+  }
+
+  method desactivarAumentoPorMuchasVentas() {
+  hayMuchasVentas = false
+  }
+}
+
+object medioTiempo {
+  var categoriaBase = gerente
+
+  method categoriaBase(unaCategoria) {
+    categoriaBase = unaCategoria
+  }
+
+  method neto() {
+    return categoriaBase.neto() / 2
+  }
+}
+
+// ========================================= BONOS =====================================================
 object bonoPorResultados {           //usado por 'pepe' y 'sofia'
   method monto(empleado) {
     return bonoPorcentaje.monto(empleado) + bonoMontoFijo.monto(empleado)
@@ -111,4 +147,36 @@ object bonoNulo {
     method monto(empleado) { 
         return 0 
     } 
+}
+
+// ========================================= SOFÍA =====================================================
+object sofia {
+  var ausencias = 0
+  var categoria = gerente
+  var bonoPorResultados = bonoNulo
+
+
+  method sueldoNeto() {
+    return categoria.neto() * 1.3
+  }
+
+  method sueldo() {
+    return self.sueldoNeto() + bonoPorResultados.monto(self)
+  } 
+  method ausencias(){
+    return ausencias
+} 
+
+  method _ausencias(_ausencias) {  // para pasarle la cant de ausencias del empleado
+    ausencias = _ausencias
+  }
+
+  method categoria(_categoria) {
+    categoria = _categoria
+  }
+
+// idem setter que el empleado 'pepe'
+  method bonoPorResultados(unBono) {
+    bonoPorResultados = unBono
+  }
 }
