@@ -4,14 +4,10 @@ import pepe.*
 
 describe "sueldo pepe" {
 	test "Test inicial 1" {
-		/* esta parte está comentada porque falta agregar los métodos
-		 * correspondientes en el objeto pepe. 
-		 * Descomentar las cuatro líneas que siguen para que el test funcione correctamente. 
-		 */
-//		pepe.setCategoria(cadete)
-//		pepe.setBonoResultado(bonoMontoFijo)
-//		pepe.setBonoPresentismo(bonoPresentismoNormal)
-//		pepe.setCantidadDeFaltas(3)
+		pepe.categoria(cadete)
+		pepe.bonoPorResultados(bonoMontoFijo)
+		pepe.bonoPorPresentismo(bonoPresentismoNormal)
+		pepe.ausencias(3)
 		
 		assert.equals(20000 + 800 + 0, pepe.sueldo())
 	}
