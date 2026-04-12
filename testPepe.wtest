@@ -18,3 +18,22 @@ describe "sueldo pepe" {
 
 	
 }
+
+
+// mío:
+import pepe.*
+//import bonos.*          bonos y categorias están en el mismo archivo de pepe
+//import categorias.*
+
+describe "sueldo pepe" {
+	test "Test inicial 1" {
+		pepe.categoria(cadete)
+		pepe.bonoPorResultados(bonoMontoFijo)
+		pepe.bonoPorPresentismo(bonoPresentismoNormal)
+		pepe.ausencias(3)
+		
+		assert.equals(20000 + 800 + 0, pepe.sueldo())
+	}
+
+	
+}
