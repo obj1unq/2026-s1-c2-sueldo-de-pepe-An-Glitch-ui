@@ -20,11 +20,11 @@ method ausencias(){
     return ausencias
 } 
 
-method _ausencias(_ausencias) {  // para pasarle la cant de ausencias del empleado
-  ausencias = _ausencias
+method ausencias(cantidad) {
+  ausencias = cantidad
 }
 
-method categoria(_categoria) {
+method categoria(_categoria) {    //funciona bien poniendo solamente     pepe.categoria(cadete/gerente)
   categoria = _categoria
 }
 // setters hechos (y también modificado los 2 atributos bonos 'const' por 'var') para setearle el valor que debe dar por ausencia, ya que si no siempre
@@ -85,11 +85,6 @@ object medioTiempo {
 }
 
 // ========================================= BONOS =====================================================
-object bonoPorResultados {           //usado por 'pepe' y 'sofia'
-  method monto(empleado) {
-    return bonoPorcentaje.monto(empleado) + bonoMontoFijo.monto(empleado)
-  } 
-}
 // bono por resultados por porcentaje
 object bonoPorcentaje {
     method monto(empleado) { 
@@ -100,13 +95,6 @@ object bonoPorcentaje {
 object bonoMontoFijo {
   method monto(empleado) {
     return 800
-  }
-}
-object bonoPorPresentismo {
-  method monto(empleado) {
-    return bonoPresentismoNormal.monto(empleado)
-    + bonoPresentismoAjuste.monto(empleado)
-    + bonoPresentismoDemagogico.monto(empleado)
   }
 }
 //          bonos por   >presentismo<
@@ -167,8 +155,8 @@ object sofia {
     return ausencias
 } 
 
-  method _ausencias(_ausencias) {  // para pasarle la cant de ausencias del empleado
-    ausencias = _ausencias
+  method ausencias(cantidad) {
+    ausencias = cantidad
   }
 
   method categoria(_categoria) {
@@ -201,5 +189,56 @@ object roque {
 
 // ========================================= ERNESTO =====================================================
 object ernesto {
-  
+  const ausencias = 0
+  var compañero = null
+  var bonoPorPresentismo = bonoNulo
+
+
+  method sueldo() {
+    return self.sueldoNeto() + bonoPorPresentismo.monto(self)
+  }
+
+  method sueldoNeto() {
+    return compañero.sueldoNeto()
+  }
+
+  method compañero() {
+    return compañero
+  }
+
+  method compañero(unCompañero) {
+    compañero = unCompañero
+  }
+
+  method bonoPorPresentismo(unBono) {
+    bonoPorPresentismo = unBono
+  }
+
+  method ausencias(){
+    return ausencias
+} 
 }
+
+// ================================================= TESTS =============================================
+/*
+1° La categoría base de medio tiempo es cadete.
+  > medioTiempo.categoriaBase(cadete)
+
+2° Pepe tiene categoría medio tiempo (o sea, es cadete y trabaja medio tiempo), tiene bono por resultados de porcentaje, y bono por presentismo demagógico. 
+Hacer que falte una vez.
+  > pepe.categoria(medioTiempo)
+  > pepe.bonoPorResultados(bonoPorcentaje)
+  > pepe.bonoPorPresentismo(bonoPresentismoDemagogico)
+  > pepe.ausencias(1)
+  
+
+3° Roque tiene bono por resultados monto fijo.
+  > roque.bonoPorResultados(bonoMontoFijo)
+
+4° Ernesto tiene como compañero a Pepe, y bono por presentismo de ajuste.
+  > ernesto.compañero(pepe)
+  > ernesto.bonoPorPresentismo(bonoPresentismoAjuste)
+
+Verificar que el sueldo de Pepe es 11500, el de Roque es 37800, y el de Ernesto es 10100.
+                                   \done/                 \done/                    \donde/   
+*/
