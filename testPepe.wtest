@@ -33,7 +33,25 @@ describe "sueldo pepe" {
 		pepe.ausencias(3)
 		
 		assert.equals(20000 + 800 + 0, pepe.sueldo())
-	}
+	}	
+}
 
-	
+describe "test del enunciado" {
+  test "Test inicial 2" {
+	medioTiempo.categoriaBase(cadete)
+	pepe.categoria(medioTiempo)
+	pepe.bonoPorResultados(bonoPorcentaje)
+    pepe.bonoPorPresentismo(bonoPresentismoDemagogico)
+    pepe.ausencias(1)
+        assert.equals(11500, pepe.sueldo())
+
+
+	roque.bonoPorResultados(bonoMontoFijo)
+
+		assert.equals(37800, roque.sueldo())
+
+	ernesto.compañero(pepe)
+    ernesto.bonoPorPresentismo(bonoPresentismoAjuste)
+	    assert.equals(10100, ernesto.sueldo())
+  }
 }
