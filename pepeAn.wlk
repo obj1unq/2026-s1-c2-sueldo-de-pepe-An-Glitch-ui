@@ -20,7 +20,7 @@ method ausencias(){
     return ausencias
 } 
 
-method _ausencias(_ausencias) {  // para pasarle la cant de ausencias del empleado
+method ausencias(_ausencias) {  // para pasarle la cant de ausencias del empleado
   ausencias = _ausencias
 }
 
